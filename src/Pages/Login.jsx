@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -14,12 +18,27 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(user);
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        user
+      );
 
-    // Backend login API will be connected in the next step.
+      // Save Token
+      localStorage.setItem("token", res.data.token);
+
+      // Save User Details
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      toast.success("🎉 Welcome back to MoodVerse!");
+
+      navigate("/");
+    } catch (error) {
+      toast.error("❌ Login Failed");
+    }
   };
 
   return (

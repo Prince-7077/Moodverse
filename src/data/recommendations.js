@@ -6,7 +6,7 @@ const recommendations = {
     artist: "Pharrell Williams",
     description: "An energetic song that instantly lifts your mood.",
     image: "https://picsum.photos/300/300?random=1",
-    link: "https://www.youtube.com/results?search_query=Happy+Pharrell+Williams",
+    link: "https://www.youtube.com/watch?v=D8I2D6VLQQc&list=RDD8I2D6VLQQc&start_radio=1",
   },
 
   {
@@ -14,7 +14,7 @@ const recommendations = {
     artist: "OneRepublic",
     description: "Feel-good anthem full of positive vibes.",
     image: "https://picsum.photos/300/300?random=2",
-    link: "https://www.youtube.com/results?search_query=Good+Life+OneRepublic",
+    link: "https://www.youtube.com/watch?v=FZLadzn5i6Q&list=RDD8I2D6VLQQc&index=4",
   },
 
   {
