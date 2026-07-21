@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState ,useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import AuthContext from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const [user, setUser] = useState({
     email: "",
@@ -27,15 +29,11 @@ const Login = () => {
         user
       );
 
-      // Save Token
-      localStorage.setItem("token", res.data.token);
+       login(res.data.user, res.data.token);
 
-      // Save User Details
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+toast.success("🎉 Welcome back to MoodVerse!");
 
-      toast.success("🎉 Welcome back to MoodVerse!");
-
-      navigate("/");
+navigate("/");
     } catch (error) {
       toast.error("❌ Login Failed");
     }

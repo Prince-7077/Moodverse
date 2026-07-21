@@ -1,6 +1,21 @@
 import { Link } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Profile = () => {
+   const {user, logout } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+
+    toast.success("👋 Logged out successfully!");
+
+    navigate("/");
+  };
   return (
     <div className="min-h-screen bg-slate-950 text-white flex justify-center items-center p-8">
 
@@ -23,11 +38,11 @@ const Profile = () => {
         <div className="pt-20 px-10 pb-10">
 
           <h1 className="text-4xl font-bold">
-            Prince 👋
+            {user?.name} 👋
           </h1>
 
           <p className="text-gray-400 mt-2">
-            prince@example.com
+             {user?.email}
           </p>
 
           {/* Stats */}
@@ -66,9 +81,12 @@ const Profile = () => {
               Edit Profile
             </button>
 
-            <button className="bg-red-500 px-6 py-3 rounded-xl hover:bg-red-600 transition">
-              Logout
-            </button>
+              <button
+  onClick={handleLogout}
+  className="bg-red-500 px-6 py-3 rounded-xl hover:bg-red-600 transition"
+>
+  Logout
+</button>
 
             <Link
               to="/"

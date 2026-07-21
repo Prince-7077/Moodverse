@@ -1,7 +1,13 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -9,7 +15,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-8 py-6 flex items-center justify-between">
 
         {/* Logo */}
-        <Link to="/" className="text-3xl font-bold text-white">
+        <Link to="/" className="text-4xl font-bold text-white">
           Mood<span className="text-pink-500">Verse</span>
         </Link>
 
@@ -32,26 +38,29 @@ const Navbar = () => {
             </Link>
           </li>
 
-          <li>
-            <Link
-              to="/favorites"
-              className="hover:text-pink-400 transition"
-              onClick={() => setIsOpen(false)}
-            >
-              ❤️ Favorites
-            </Link>
-          </li>
+          {user && (
+            <li>
+              <Link
+                to="/favorites"
+                className="hover:text-pink-400 transition"
+                onClick={() => setIsOpen(false)}
+              >
+                ❤️ Favorites
+              </Link>
+            </li>
+          )}
 
-          {/* Existing User */}
-          <li>
-            <Link
-              to="/login"
-              className="hover:text-pink-400 transition"
-              onClick={() => setIsOpen(false)}
-            >
-              Login
-            </Link>
-          </li>
+          {!user && (
+            <li>
+              <Link
+                to="/login"
+                className="hover:text-pink-400 transition"
+                onClick={() => setIsOpen(false)}
+              >
+                Login
+              </Link>
+            </li>
+          )}
 
           <li>
             <a
@@ -93,26 +102,30 @@ const Navbar = () => {
             </a>
           </li>
 
-          <li>
-            <Link
-              to="/profile"
-              className="hover:text-pink-500 transition"
-              onClick={() => setIsOpen(false)}
-            >
-              👤 Profile
-            </Link>
-          </li>
+          {user && (
+            <li>
+              <Link
+                to="/profile"
+                className="hover:text-pink-500 transition"
+                onClick={() => setIsOpen(false)}
+              >
+                👤 Profile
+              </Link>
+            </li>
+          )}
 
-          {/* Sign In Button (Mobile Only) */}
-          <li className="md:hidden w-full">
-            <Link
-              to="/signup"
-              onClick={() => setIsOpen(false)}
-              className="block w-full text-center bg-linear-to-r from-purple-600 to-pink-500 px-6 py-3 rounded-full text-white font-semibold hover:scale-105 transition duration-300"
-            >
-              Sign In
-            </Link>
-          </li>
+
+          {!user && (
+            <li className="md:hidden w-full">
+              <Link
+                to="/signup"
+                onClick={() => setIsOpen(false)}
+                className="block w-full text-center bg-linear-to-r from-purple-600 to-pink-500 px-6 py-3 rounded-full text-white font-semibold hover:scale-105 transition duration-300"
+              >
+                Sign In
+              </Link>
+            </li>
+          )}
         </ul>
 
         {/* Hamburger Button (Mobile Only) */}
@@ -124,12 +137,14 @@ const Navbar = () => {
         </button>
 
         {/* Desktop Sign In Button */}
-        <Link
-          to="/signup"
-          className="hidden md:block bg-linear-to-r from-purple-600 to-pink-500 px-6 py-3 rounded-full text-white font-semibold hover:scale-105 transition duration-300"
-        >
-          Sign In
-        </Link>
+        {!user && (
+          <Link
+            to="/signup"
+            className="hidden md:block bg-linear-to-r from-purple-600 to-pink-500 px-6 py-3 rounded-full text-white font-semibold hover:scale-105 transition duration-300"
+          >
+            Sign In
+          </Link>
+        )}
 
       </div>
     </nav>
