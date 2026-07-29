@@ -1,35 +1,27 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const FavoritesContext = createContext();
 
 export const FavoritesProvider = ({ children }) => {
-
-  const [favorites, setFavorites] = useState(() => {
-    const saved = localStorage.getItem("favorites");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
+  const [favorites, setFavorites] = useState([]);
 
   const addFavorite = (item) => {
-  const exists = favorites.some(
-    (fav) => fav.title === item.title
-  );
+    setFavorites((prev) => {
+      const exists = prev.some((fav) => fav.title === item.title);
+      if (exists) return prev;
+      return [...prev, item];
+    });
+  };
 
-  if (!exists) {
-    setFavorites([...favorites, item]);
-  }
-};
+  const removeFavorite = (item) => {
+    setFavorites((prev) =>
+      prev.filter((fav) => fav.title !== item.title)
+    );
+  };
 
-const removeFavorite = (item) => {
-  setFavorites(
-    favorites.filter(
-      (fav) => fav.title !== item.title
-    )
-  );
-};
+  const setAllFavorites = (items) => {
+    setFavorites(items);
+  };
 
   return (
     <FavoritesContext.Provider
@@ -37,6 +29,7 @@ const removeFavorite = (item) => {
         favorites,
         addFavorite,
         removeFavorite,
+        setAllFavorites,
       }}
     >
       {children}

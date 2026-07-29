@@ -18,7 +18,7 @@ const Hero = () => {
         <div className="max-w-xl">
 
           <h1 className="text-6xl font-bold leading-tight text-white">
-            Don't search by words.
+            Don't search by words
             <br />
             Search by{" "}
             <span className="text-pink-500">
@@ -32,7 +32,7 @@ const Hero = () => {
           </p>
 
           <Link to="/mood">
-            <button className="mt-10 px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 hover:scale-105 transition duration-300 text-lg font-semibold">
+            <button className="mt-10 px-8 py-4 rounded-full bg-linear-to-r from-purple-600 to-pink-500 hover:scale-105 transition duration-300 text-lg font-semibold">
               How are you feeling?
             </button>
           </Link>

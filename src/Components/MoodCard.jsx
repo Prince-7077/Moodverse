@@ -5,7 +5,10 @@ const MoodCard = ({ emoji, title }) => {
 
   return (
     <div
-      onClick={() => navigate(`/recommendations/${title}`)}
+      onClick={() => {
+  localStorage.setItem("lastMood", title);
+  navigate(`/recommendations/${title}`);
+}}
       className="bg-slate-800 rounded-2xl p-8 cursor-pointer hover:scale-105 transition"
     >
       <div className="text-6xl">{emoji}</div>

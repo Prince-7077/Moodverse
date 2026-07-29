@@ -1,10 +1,13 @@
 import { createContext, useEffect, useState } from "react";
-
+import { useContext } from "react";
+import { useFavorites } from "./FavoritesContext";
+import axios from "axios";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   // Logged-in user
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Check if user is already logged in when app starts
   useEffect(() => {
@@ -13,6 +16,7 @@ export const AuthProvider = ({ children }) => {
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
+     setLoading(false);
   }, []);
 
   // Login Function
@@ -35,6 +39,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        loading,
         login,
         logout,
       }}

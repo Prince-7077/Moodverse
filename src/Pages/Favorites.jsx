@@ -1,9 +1,30 @@
 import { useFavorites } from "../context/FavoritesContext";
 import Navbar from "../components/Navbar";
+import { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import AuthContext from "../context/AuthContext";
 
 const Favorites = () => {
-  const { favorites, removeFavorite } = useFavorites();
+  const { user } = useContext(AuthContext);
 
+  const [favorites, setFavorites] = useState([]);
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      if (!user) return;
+
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/favorites/${user._id || user.id}`
+        );
+
+        setFavorites(res.data.favorites);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchFavorites();
+  }, [user]);
   return (
     <>
       <Navbar />
@@ -26,21 +47,28 @@ const Favorites = () => {
                 key={index}
                 className="bg-slate-800 rounded-2xl overflow-hidden shadow-lg"
               >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-56 object-cover"
-                />
-
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-56 object-cover"
+                  />
+                ) : (
+                  <div className="h-56 bg-slate-700 flex items-center justify-center text-6xl">
+                    ❤️
+                  </div>
+                )}
                 <div className="p-6">
 
                   <h2 className="text-2xl font-bold">
                     {item.title}
                   </h2>
 
-                  <p className="text-pink-400 mt-2">
-                    {item.artist}
-                  </p>
+                  {item.artist && (
+                    <p className="text-pink-400 mt-2">
+                      {item.artist}
+                    </p>
+                  )}
 
                   <p className="text-gray-400 mt-3">
                     {item.description}
@@ -58,7 +86,20 @@ const Favorites = () => {
                     </a>
 
                     <button
-                      onClick={() => removeFavorite(item)}
+                      onClick={async () => {
+                        try {
+                          await axios.delete(
+                            `http://localhost:5000/api/favorites/${user._id || user.id}/${encodeURIComponent(item.title)}`
+                          );
+
+                          setFavorites((prev) =>
+                            prev.filter((fav) => fav._id !== item._id)
+                          );
+
+                        } catch (error) {
+                          console.log(error);
+                        }
+                      }}
                       className="text-3xl"
                     >
                       ❤️

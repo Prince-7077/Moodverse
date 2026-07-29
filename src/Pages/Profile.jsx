@@ -1,21 +1,33 @@
 import { Link } from "react-router-dom";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { useFavorites } from "../context/FavoritesContext";
+
 
 const Profile = () => {
-   const {user, logout } = useContext(AuthContext);
-
+  const { user, logout } = useContext(AuthContext);
+  const { favorites } = useFavorites();
+  const [lastMood, setLastMood] = useState("Not Selected");
+  
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-
     toast.success("👋 Logged out successfully!");
 
     navigate("/");
   };
+  useEffect(() => {
+  const mood = localStorage.getItem("lastMood");
+
+  if (mood) {
+    setLastMood(mood);
+  }
+}, []);
+
   return (
     <div className="min-h-screen bg-slate-950 text-white flex justify-center items-center p-8">
 
@@ -42,7 +54,7 @@ const Profile = () => {
           </h1>
 
           <p className="text-gray-400 mt-2">
-             {user?.email}
+            {user?.email}
           </p>
 
           {/* Stats */}
@@ -51,19 +63,21 @@ const Profile = () => {
             <div className="bg-slate-800 rounded-2xl p-6 text-center">
               <h2 className="text-4xl">❤️</h2>
               <p className="mt-3 text-gray-400">Favorites</p>
-              <h3 className="text-3xl font-bold mt-2">12</h3>
+              <h3 className="text-3xl font-bold mt-2">
+                {favorites.length}
+              </h3>
             </div>
 
             <div className="bg-slate-800 rounded-2xl p-6 text-center">
               <h2 className="text-4xl">😊</h2>
               <p className="mt-3 text-gray-400">Last Mood</p>
-              <h3 className="text-2xl font-bold mt-2">Happy</h3>
+              <h3 className="text-2xl font-bold mt-2">{lastMood}</h3>
             </div>
 
             <div className="bg-slate-800 rounded-2xl p-6 text-center">
               <h2 className="text-4xl">🔥</h2>
               <p className="mt-3 text-gray-400">Mood Checks</p>
-              <h3 className="text-3xl font-bold mt-2">28</h3>
+              <h3 className="text-3xl font-bold mt-2">0</h3>
             </div>
 
             <div className="bg-slate-800 rounded-2xl p-6 text-center">
@@ -81,12 +95,12 @@ const Profile = () => {
               Edit Profile
             </button>
 
-              <button
-  onClick={handleLogout}
-  className="bg-red-500 px-6 py-3 rounded-xl hover:bg-red-600 transition"
->
-  Logout
-</button>
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 px-6 py-3 rounded-xl hover:bg-red-600 transition"
+            >
+              Logout
+            </button>
 
             <Link
               to="/"
@@ -101,7 +115,7 @@ const Profile = () => {
 
       </div>
 
-     </div>
+    </div>
   );
 };
 

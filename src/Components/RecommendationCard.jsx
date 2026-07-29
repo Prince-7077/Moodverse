@@ -1,8 +1,66 @@
 import { useFavorites } from "../context/FavoritesContext";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 
 const RecommendationCard = ({ item, category }) => {
   const { favorites, addFavorite, removeFavorite } = useFavorites();
+  const { user } = useContext(AuthContext);
 
+   const handleFavorite = async () => {
+  // User must be logged in
+  if (!user) {
+    toast.error("Please login first!");
+    return;
+  }
+
+  try {
+    if (isFavorite) {
+      // Remove from MongoDB
+      await axios.delete(
+        `http://localhost:5000/api/favorites/${user._id || user.id}/${encodeURIComponent(title)}`
+      );
+
+      // Remove from local context
+      removeFavorite(item);
+
+      toast.info("Removed from Favorites");
+    } else {
+      // Save locally
+      addFavorite(item);
+
+      console.log("Auth User:", user);
+      console.log("User ID:", user._id || user.id);
+
+      console.log({
+        user: user._id || user.id,
+        title,
+        type: category,
+        mood: "Happy",
+      });
+
+      // Save to MongoDB
+      await axios.post("http://localhost:5000/api/favorites", {
+        user: user._id || user.id,
+        title,
+        
+        type: category,
+        mood: "Happy",
+        artist: subtitle,
+        description: description,
+        image: image,
+        link: link,
+      });
+
+      toast.success("❤️ Added to Favorites");
+    }
+  } catch (error) {
+    console.log(error);
+    toast.error("Something went wrong");
+  }
+};
+   
   // Support BOTH string and object data
   const title = typeof item === "string" ? item : item.title;
   const subtitle = typeof item === "string" ? "" : item.subtitle;
@@ -91,13 +149,7 @@ const RecommendationCard = ({ item, category }) => {
           )}
 
           <button
-            onClick={() => {
-              if (isFavorite) {
-                removeFavorite(item);
-              } else {
-                addFavorite(item);
-              }
-            }}
+            onClick={handleFavorite}
             className="text-3xl"
           >
             {isFavorite ? "❤️" : "🤍"}

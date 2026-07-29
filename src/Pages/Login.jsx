@@ -1,4 +1,4 @@
-import { useState ,useContext} from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -29,19 +29,23 @@ const Login = () => {
         user
       );
 
-       login(res.data.user, res.data.token);
+      // 👇 Debug: Check what backend returns
+      console.log("Login Response:", res.data);
 
-toast.success("🎉 Welcome back to MoodVerse!");
+      // Save user in AuthContext
+      login(res.data.user, res.data.token);
 
-navigate("/");
+      toast.success("🎉 Welcome back to MoodVerse!");
+
+      navigate("/");
     } catch (error) {
+      console.log(error.response?.data);
       toast.error("❌ Login Failed");
     }
   };
 
   return (
     <div className="min-h-screen bg-slate-950 flex justify-center items-center px-4">
-
       <form
         onSubmit={handleSubmit}
         className="bg-slate-900 w-full max-w-md p-8 rounded-2xl shadow-xl"
@@ -86,9 +90,7 @@ navigate("/");
             Sign Up
           </Link>
         </p>
-
       </form>
-
     </div>
   );
 };
