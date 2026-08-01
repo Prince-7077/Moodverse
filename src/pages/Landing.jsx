@@ -1,11 +1,11 @@
-import Navbar from "../abc/Navbar";
-import Hero from "../abc/Hero";
-import MoodSection from "../abc/MoodSection";
-import Features from "../abc/Features";
-import CategorySection from "../abc/CategorySection";
-import FeaturesSection from "../abc/FeaturesSection";
+import Navbar from "../components/Navbar";
+import Hero from "../components/Hero";
+import MoodSection from "../components/MoodSection";
+import Features from "../components/Features";
+import CategorySection from "../components/CategorySection";
+import FeaturesSection from "../components/FeaturesSection";
 import Recommendations from "./Recommendations";
-import Footer from "../abc/Footer";
+import Footer from "../components/Footer";
 
 const Landing = () => {
   return (
