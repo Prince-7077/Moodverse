@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Landing from "./abc/Landing";
-import Login from "./abc/Login";
-import Signup from "./abc/Signup";
-import Mood from "./abc/Mood";
-import Recommendations from "./abc/Recommendations";
-import Favorites from "./abc/Favorites";
-import Profile from "./abc/Profile";
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Mood from "./pages/Mood";
+import Recommendations from "./pages/Recommendations";
+import Favorites from "./pages/Favorites";
+import Profile from "./pages/Profile";
 
 import { useContext, useEffect } from "react";
 import axios from "axios";
