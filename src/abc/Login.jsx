@@ -25,7 +25,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://moodverse-k02w.onrender.com/api/auth/login",
         user
       );
 

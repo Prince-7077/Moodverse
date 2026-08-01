@@ -19,7 +19,7 @@ const RecommendationCard = ({ item, category }) => {
     if (isFavorite) {
       // Remove from MongoDB
       await axios.delete(
-        `http://localhost:5000/api/favorites/${user._id || user.id}/${encodeURIComponent(title)}`
+        `https://moodverse-k02w.onrender.com/api/favorites/${user._id || user.id}/${encodeURIComponent(title)}`
       );
 
       // Remove from local context
@@ -41,7 +41,7 @@ const RecommendationCard = ({ item, category }) => {
       });
 
       // Save to MongoDB
-      await axios.post("http://localhost:5000/api/favorites", {
+      await axios.post("https://moodverse-k02w.onrender.com/api/favorites", {
         user: user._id || user.id,
         title,
         

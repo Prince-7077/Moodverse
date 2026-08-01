@@ -14,7 +14,7 @@ const Favorites = () => {
 
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/favorites/${user._id || user.id}`
+          `https://moodverse-k02w.onrender.com/api/favorites/${user._id || user.id}`
         );
 
         setFavorites(res.data.favorites);
@@ -89,7 +89,7 @@ const Favorites = () => {
                       onClick={async () => {
                         try {
                           await axios.delete(
-                            `http://localhost:5000/api/favorites/${user._id || user.id}/${encodeURIComponent(item.title)}`
+                            `https://moodverse-k02w.onrender.com/api/favorites/${user._id || user.id}/${encodeURIComponent(item.title)}`
                           );
 
                           setFavorites((prev) =>

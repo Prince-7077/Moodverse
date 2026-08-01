@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Landing from "./Pages/Landing";
-import Login from "./Pages/Login";
-import Signup from "./Pages/Signup";
-import Mood from "./Pages/Mood";
-import Recommendations from "./Pages/Recommendations";
-import Favorites from "./Pages/Favorites";
-import Profile from "./Pages/Profile";
+import Landing from "./abc/Landing";
+import Login from "./abc/Login";
+import Signup from "./abc/Signup";
+import Mood from "./abc/Mood";
+import Recommendations from "./abc/Recommendations";
+import Favorites from "./abc/Favorites";
+import Profile from "./abc/Profile";
 
 import { useContext, useEffect } from "react";
 import axios from "axios";
@@ -28,7 +28,7 @@ useEffect(() => {
 
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/favorites/${user._id || user.id}`
+        `https://moodverse-k02w.onrender.com/api/favorites/${user._id || user.id}`
       );
 
       setAllFavorites(res.data.favorites);
