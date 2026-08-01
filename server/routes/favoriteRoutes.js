@@ -1,5 +1,5 @@
 import express from "express";
-import Favorite from "../models/favorite.js";
+import Favorite from "../models/abc.js";
 
 const router = express.Router();
 
