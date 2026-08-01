@@ -13,7 +13,7 @@ import axios from "axios";
 import AuthContext from "./context/AuthContext";
 import { useFavorites } from "./context/FavoritesContext";
 
-import ProtectedRoute from "./components/PerfectedRoute";
+import ProtectedRoute from "./abc/PerfectedRoute";
 
 function App() {
      const { user } = useContext(AuthContext);

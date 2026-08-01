@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import recommendations from "../data/recommendations";
-import RecommendationCard from "../components/RecommendationCard";
+import RecommendationCard from "../abc/RecommendationCard";
 
 const Recommendations = () => {
   const { mood } = useParams();

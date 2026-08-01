@@ -1,5 +1,5 @@
 import { useFavorites } from "../context/FavoritesContext";
-import Navbar from "../abc/Navbar";
+import Navbar from "./Navbar";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import AuthContext from "../context/AuthContext";
