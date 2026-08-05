@@ -19,6 +19,18 @@ MoodVerse is a Full Stack Mood-Based Recommendation Web Application that helps u
 - ☁️ MongoDB Atlas Database
 - 🚀 Live Deployment
 
+  ## 🔓 Why Create an Account?
+
+While anyone can explore MoodVerse, creating a free account unlocks additional features:
+
+- ❤️ Save your favorite movies, music, books, and quotes
+- 📚 Build your own personalized collection
+- 🔄 Access your saved favorites anytime
+- 🚀 Enjoy upcoming personalized features
+
+> **Guest Users:** Browse recommendations freely.
+
+> **Signed-in Users:** Unlock Favorites and enjoy a more personalized MoodVerse experience.
 ---
 
 ## Tech Stack
